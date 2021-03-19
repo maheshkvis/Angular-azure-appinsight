@@ -29,7 +29,7 @@
         import {  
             ApplicationInsights,  
             IExceptionTelemetry,  
-            DistributedTracingModes } from '@microsoft/     applicationinsights-web';  
+            DistributedTracingModes } from '@microsoft/applicationinsights-web';  
         import {  
             Router,  
             NavigationEnd } from '@angular/router';  
@@ -42,7 +42,7 @@
             constructor(private router: Router) {  
                 this.appInsights = new ApplicationInsights({  
                     config: {  
-                        instrumentationKey: environment.appInsights.        instrumentationKey,        
+                        instrumentationKey: environment.appInsights.instrumentationKey,        
                     enableCorsCorrelation: true
                     }  
                 });  
@@ -73,28 +73,28 @@
                     var item = envelope.baseData;  
                     item.properties = item.properties || {};  
                     item.properties["ApplicationPlatform"] = "Web";  
-                    item.properties["ApplicationName"] =        "ApplicationName";  
+                    item.properties["ApplicationName"] = "ApplicationName";  
                 });  
             }  
             private createRouterSubscription() {  
-                this.router.events.pipe(filter(event => event       instanceof NavigationEnd)).subscribe((event:    NavigationEnd) => {  
-                    this.logPageView(null, event.urlAfterRedirects);  
-                });  
-            }  
-        }  
+        this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe((event: NavigationEnd) => {  
+            this.logPageView(null, event.urlAfterRedirects);  
+        });  
+    }  
+}  
 ```
 
 5. Declare ApplicationInsightsService in AppComponent class
 ```
         export class AppComponent {
-          constructor(private ApplicationInsightsService:       ApplicationInsightsService) {
+          constructor(private ApplicationInsightsService: ApplicationInsightsService) {
             ApplicationInsightsService.logPageView('HomePage');
           }
         }
 ```
 6.  For the error and exception handling we need to create a custom error handler that just sends the error details to application insight. For that create an ApplicationInsightsErrorHandler class
 ```
-        import {  ApplicationInsightsService } from './     application-insights.service'; 
+        import {  ApplicationInsightsService } from './application-insights.service'; 
         import {  
             ErrorHandler,  
             Injector,  
@@ -102,10 +102,10 @@
         } from '@angular/core';  
 
         @Injectable()  
-        export class ApplicationInsightsErrorHandler implements         ErrorHandler {  
+        export class ApplicationInsightsErrorHandler implements ErrorHandler {  
             constructor(private injector: Injector) {}  
             handleError(error: any): void {  
-                this.injector.get < ApplicationInsightsService >        (ApplicationInsightsService).logException(error);  
+                this.injector.get < ApplicationInsightsService >(ApplicationInsightsService).logException(error);  
                 console.log(error);  
             }  
         }  
