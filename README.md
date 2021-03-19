@@ -51,7 +51,7 @@
                 this.createRouterSubscription();  
             }  
             setUserId(userId: string) {  
-                this.appInsights.setAuthenticatedUserContext(userId)        ;  
+                this.appInsights.setAuthenticatedUserContext(userId);  
             }  
             clearUserId() {  
                 this.appInsights.clearAuthenticatedUserContext();  
@@ -69,7 +69,7 @@
                 this.appInsights.trackException(exception);  
             }  
             private loadCustomTelemetryProperties() {  
-                this.appInsights.addTelemetryInitializer(envelope =>        {  
+                this.appInsights.addTelemetryInitializer(envelope => {  
                     var item = envelope.baseData;  
                     item.properties = item.properties || {};  
                     item.properties["ApplicationPlatform"] = "Web";  
